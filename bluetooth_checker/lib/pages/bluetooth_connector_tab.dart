@@ -225,28 +225,34 @@ class _BluetoothConnectorTabState extends State<BluetoothConnectorTab> {
           "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} "
           "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
 
-      // CPCL commands
+      // CPCL Receipt Template
       final cpcl = '''
-! 0 200 200 650 1
+! 0 200 200 750 1
 CENTER
-TEXT 0 0 189 5 Thank you for purchase!
-LINE 50 25 150 25 1
-TEXT 0 0 189 35 Item: Sample
-TEXT 0 0 189 50 Qty: 1 Price: 100
-LINE 50 70 150 70 1
-TEXT 0 0 189 80 Total: 100
-TEXT 0 0 189 95 Payment: Cash
-TEXT 0 0 189 110 Date: $formattedDate
-LINE 50 130 150 130 1
-CENTER
-TEXT 0 0 189 140 Visit Again!
+TEXT 4 0 0 30 Thank you for your purchase!
+LINE 0 70 600 70 2
+
+LEFT
+TEXT 0 0 10 90 Item: Sample
+TEXT 0 0 10 120 Qty: 1
+TEXT 0 0 200 120 Price: 100
+
+LINE 0 150 600 150 1
+
+TEXT 0 0 10 170 Total: 100
+TEXT 0 0 10 200 Payment: Cash
+TEXT 0 0 10 230 Date: $formattedDate
+
+LINE 0 260 600 260 1
 
 CENTER
-TEXT 0 0 189 160 Scan to view online:
-BARCODE QR 100 180 M 2 U 6
+TEXT 0 0 0 280 Visit Again!
+TEXT 0 0 0 310 Scan to view online:
+BARCODE QR 150 340 M 2 U 6
 MA,https://charming-valkyrie-c973ce.netlify.app/
 ENDQR
 
+FORM
 PRINT
 ''';
 
@@ -256,7 +262,6 @@ PRINT
       for (var service in services) {
         for (var characteristic in service.characteristics) {
           if (characteristic.properties.write) {
-            // Send in chunks
             const chunkSize = 20;
             for (var i = 0; i < bytes.length; i += chunkSize) {
               final chunk = bytes.sublist(
