@@ -10,36 +10,78 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Text(
-              "Menu",
-              style: TextStyle(color: Colors.white, fontSize: 24),
+          DrawerHeader(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.indigo.shade700, Colors.indigo.shade400],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Bluetooth Checker",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                ),
+              ),
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text("Home"),
+          _buildDrawerItem(
+            context,
+            icon: Icons.home,
+            text: "Home",
             onTap: () => onSectionSelected(DrawerSection.home),
           ),
-          ListTile(
-            leading: const Icon(Icons.bluetooth),
-            title: const Text("Bluetooth Checker"),
+          _buildDrawerItem(
+            context,
+            icon: Icons.bluetooth,
+            text: "Bluetooth Checker",
             onTap: () => onSectionSelected(DrawerSection.bluetoothChecker),
           ),
-          ListTile(
-            leading: const Icon(Icons.bluetooth_connected),
-            title: const Text("Bluetooth Connector"),
+          _buildDrawerItem(
+            context,
+            icon: Icons.bluetooth_connected,
+            text: "Bluetooth Connector",
             onTap: () => onSectionSelected(DrawerSection.bluetoothConnector),
           ),
-          ListTile(
-            leading: const Icon(Icons.qr_code),
-            title: const Text("QR Code"),
+          _buildDrawerItem(
+            context,
+            icon: Icons.qr_code,
+            text: "QR Code",
             onTap: () => onSectionSelected(DrawerSection.QRcode),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildDrawerItem(
+    BuildContext context, {
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.indigo),
+      title: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
+        ),
+      ),
+      hoverColor: Colors.indigo.shade50,
+      onTap: onTap,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
     );
   }
 }

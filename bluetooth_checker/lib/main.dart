@@ -14,9 +14,59 @@ class BluetoothCheckerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final baseTheme = ThemeData.light();
     return MaterialApp(
       title: 'Bluetooth Checker App',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: baseTheme.copyWith(
+        colorScheme: baseTheme.colorScheme.copyWith(
+          primary: Colors.indigo,
+          secondary: Colors.indigoAccent,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.indigo,
+          foregroundColor: Colors.white,
+          elevation: 4,
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.indigo,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          ),
+        ),
+        textTheme: baseTheme.textTheme.copyWith(
+          titleLarge: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            color: Colors.indigo,
+          ),
+          bodyMedium: const TextStyle(fontSize: 16, color: Colors.black87),
+          titleMedium: const TextStyle(fontSize: 14, color: Colors.black54),
+        ),
+        tabBarTheme: const TabBarThemeData(
+          labelColor: Colors.indigo,
+          unselectedLabelColor: Colors.black54,
+          indicator: UnderlineTabIndicator(
+            borderSide: BorderSide(width: 3.0, color: Colors.indigo),
+          ),
+          labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+          unselectedLabelStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       home: const MainPage(),
     );
   }
